@@ -1,0 +1,28 @@
+.App {
+  text-align: center;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  grid-template-rows: (repeat(3,1fr));
+}
+  
+  
+.progress{
+  text-align: left;
+}
+
+.Donation-Form{
+  text-align: left;
+}
+
+.Donation-List{
+  text-align: left;
+  background: lightgray;  
+  grid-row: 2 / 4;
+  margin-right:30px;
+  margin-left:20px;
+
+}
+
+#amount{
+  width: 500px;
+}
