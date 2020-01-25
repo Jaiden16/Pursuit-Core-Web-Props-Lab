@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import './App.css';
 import Header from './components/header';
 import DonationList from './components/donationList';
@@ -6,29 +6,18 @@ import DonationForm from './components/DonationForm';
 import Progress from "./components/progress"
 // import recentDonations from './components/recentDonations';
 
-class App extends React.Component{
-  constructor(){
-    super();
-    this.state = {
-      goalAmount : 5000,
-      raisedAmount : 0,
-      donations: [],
-      donationAmount: 0,
-      donor: "",
-      caption: ""
-    }
-  }
+const App = () =>{
+    const [goalAmount, setGoalAmount] = useState(5000);
+    const [raisedAmount, setRaisedAmount] = useState(0);
+    const [donations,setDonations] = useState([]);
+    const [donationAmount, setDonationAmount] = useState(0);
+    const [donor, setDonor] = useState("");
+    const [caption, setCaption] = useState("")
   
-  handleSubmit =(event) =>{
+  
+  const handleSubmit =(event) =>{
     event.preventDefault()
 
-    const {
-      raisedAmount,
-      donations,
-      donationAmount,
-      donor,
-      caption} = this.state
-    
       
       donations.push({
         name: donor,
@@ -38,42 +27,46 @@ class App extends React.Component{
       
     let newDonationsCopy = [...donations]
     
-    this.setState({
-      donations: newDonationsCopy,
-      raisedAmount: raisedAmount + parseInt(donationAmount),
-      donationAmount: 0,
-      donor: "",
-      caption: ""
-    })
+    setDonations(newDonationsCopy);
+    setRaisedAmount(raisedAmount + parseInt(donationAmount))
+    setDonationAmount(0)
+    setDonor("")
+    setCaption("")
+    
+    // this.setState({
+    //   donations: newDonationsCopy,
+    //   raisedAmount: raisedAmount + parseInt(donationAmount),
+    //   donationAmount: 0,
+    //   donor: "",
+    //   caption: ""
+    // })
   
   }
 
   
-  handleDonationAmount = (event) =>{
-    this.setState({
-      donationAmount: event.target.value
-    })
+  const handleDonationAmount = (event) =>{
+    setDonationAmount(event.target.value)
+    
   }
   
-  handleDonorChange = (event) =>{
-    this.setState({
-      donor: event.target.value
-    })
+  const handleDonorChange = (event) =>{
+    setDonor(event.target.value)
+    
   }
 
-  handleCaptionChange = (event) =>{
-    this.setState({
-        caption: event.target.value
-    })
+  const handleCaptionChange = (event) =>{
+    setCaption(event.target.value)
+
+    
   }
 
   
   
   
   
-  render(){
-    let {goalAmount,raisedAmount,donationAmount,donor,caption,donations} = this.state
-    console.log(this.state)
+  // render(){
+    // let {goalAmount,raisedAmount,donationAmount,donor,caption,donations} = this.state
+    // console.log(this.state)
     return (
       <div className="App">
         <Header/>
@@ -87,22 +80,22 @@ class App extends React.Component{
         />
 
         <DonationForm
-        handleSubmit = {this.handleSubmit}
+        handleSubmit = {handleSubmit}
         
         donationAmount = {donationAmount}
-        handleDonationAmount = {this.handleDonationAmount}
+        handleDonationAmount = {handleDonationAmount}
         
         donor = {donor}
-        handleDonorChange = {this.handleDonorChange}
+        handleDonorChange = {handleDonorChange}
         
         caption = {caption}
-        handleCaptionChange = {this.handleCaptionChange}
+        handleCaptionChange = {handleCaptionChange}
         />
         {/* <recentDonations/> */}
       
       </div>
     )
-  }
+  // }
   
   
 }
